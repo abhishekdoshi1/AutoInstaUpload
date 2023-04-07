@@ -38,4 +38,4 @@ jobs:
         python -m pip install twilio
     - name: Test with pytest
       run: |
-        python instauploadtesting.py
+        python instauploadtesting1.py
