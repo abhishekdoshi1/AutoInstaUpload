@@ -22,7 +22,7 @@ import textwrap
 #Authenticate with OpenAI API   
 
 secrets = os.getenv("openai")
-openai.api_key = "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"
+openai.api_key = "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"
 
 #model_engine = "text-davinci-002" # set the GPT-3 model to use
 
