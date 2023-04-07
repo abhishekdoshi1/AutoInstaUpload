@@ -21,33 +21,35 @@ import textwrap
 
 #Authenticate with OpenAI API   
 
-secrets = os.getenv("openai")
-openai.api_key = "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"
-
-#model_engine = "text-davinci-002" # set the GPT-3 model to use
-
-# Define the prompt for the GPT-3 model
-#msg = "bhagavad gita"
-prompt = "give me a quote of fitness"
-
-
-# Define the GPT-3 model and parameters
-model_engine = "text-davinci-003"
-max_tokens = 1024
-temperature = 0.5
-
-completions = openai.Completion.create(
-  engine=model_engine,
-   prompt=prompt,
-   max_tokens=1024,
-    n=1,
-    stop=None,
-    temperature=0.7,
-)
-
-message = completions.choices[0].text.strip() #quote stored in message variable
-
-print(message)
+###Authenticate with OpenAI API   
+##
+##secrets = os.getenv("openai")
+##openai.api_key = "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"
+##
+###model_engine = "text-davinci-002" # set the GPT-3 model to use
+##
+### Define the prompt for the GPT-3 model
+###msg = "bhagavad gita"
+##prompt = "give me a quote of fitness"
+##
+##
+### Define the GPT-3 model and parameters
+##model_engine = "text-davinci-003"
+##max_tokens = 1024
+##temperature = 0.5
+##
+##completions = openai.Completion.create(
+##  engine=model_engine,
+##   prompt=prompt,
+##   max_tokens=1024,
+##    n=1,
+##    stop=None,
+##    temperature=0.7,
+##)
+##
+##message = completions.choices[0].text.strip() #quote stored in message variable
+##
+##print(message)
 
 
 # Define the endpoint URL and parameters
@@ -70,8 +72,36 @@ response = requests.get(image_url)
 image = Image.open(BytesIO(response.content))
 
 # Generate a random fitness quote
-fitness_quotes = message
-quote = fitness_quotes #random.choice(fitness_quotes)
+# Generate a random fitness quote
+fitness_quotes = [
+    "Sweat is fat crying.",
+    "The only bad workout is the one that didn't happen.",
+    "Success is what comes after you stop making excuses.",
+    "Strength doesn't come from what you can do. It comes from overcoming the things you once thought you couldn't.",
+    "The only way to do great work is to love what you do.",
+    "Yoga is the journey of the self, through the self, to the self.",
+    "Yoga is the art of getting lost in yourself.",
+    "Yoga teaches us to cure what need not be endured and endure what cannot be cured.",
+    "Yoga is not a religion. It is a science, science of well-being, science of youthfulness, science of integrating body, mind, and soul.",
+    "Yoga is not about touching your toes, it is what you learn on the way down.",
+    "Yoga is a light, which once lit will never dim. The better your practice, the brighter the flame.",
+    "Yoga is the perfect opportunity to be curious about who you are.",
+    "Yoga is not a work-out, it is a work-in. And this is the point of spiritual practice; to make us teachable; to open up our hearts and focus our awareness so that we can know what we already know and be who we already are.",
+    "Yoga is not a hobby. It is a way of life.",
+    "Yoga is not just repetition of few postures – it is more about the exploration and discovery of the subtle energies of life.",
+    "Yoga is the fountain of youth. You’re only as young as your spine is flexible.",
+    "Yoga is not about self-improvement, it’s about self-acceptance.",
+    "Yoga is the practice of quieting the mind.",
+    "Yoga is the dance of every cell with the music of every breath that creates inner serenity and harmony.",
+    "Yoga is the journey of the self, to the self, through the self.",
+    "Yoga is the space where flower blossoms.",
+    "Yoga is a powerful vehicle for change. As you build strength, you start to believe in your own potential.",
+    "Yoga is a mirror to look at ourselves from within.",
+    "Yoga is a light, which once lit will never dim. The better your practice, the brighter your flame.",
+    "Yoga is the perfect opportunity to be curious about who you are."
+]
+quote = random.choice(fitness_quotes)
+
 
 # Create a Pillow ImageDraw object and set font properties
 draw = ImageDraw.Draw(image)
@@ -129,7 +159,7 @@ dir_image = "instaPhotos/"
 
 #uploaded into instagram
 for image in os.listdir(dir_image):
- bot.upload_photo(dir_image + image , caption=message)
+ bot.upload_photo(dir_image + image , caption=quote)
 
 
 print("image uploaded")
