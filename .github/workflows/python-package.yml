@@ -30,7 +30,6 @@ jobs:
         python -m pip install openai
         python -m pip install openai_secret_manager
         python -m pip install urlopen
-        python -m pip install BeautifulSoup
         python -m pip install Image
         python -m pip install requests
         python -m pip install numpy
