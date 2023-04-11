@@ -150,7 +150,6 @@ bot = Bot()
 #Bot Logged into instagram with username and password
 bot.login(username="testpycode", password="Satara@123")
 
-time.sleep(retry)
 
 #find the folder 
 dir_image = "instaPhotos/"
