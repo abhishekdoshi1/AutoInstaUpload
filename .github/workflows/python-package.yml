@@ -6,12 +6,12 @@ name: Python package
 on:
   workflow_dispatch:
   schedule:
-    - cron: '5 * * * *'
+    - cron: '0 10 * * *'
 
 jobs:
   build:
 
-    runs-on: ubuntu-latest
+    runs-on: windows-2022
     strategy:
       fail-fast: false
       matrix:
