@@ -36,6 +36,12 @@ jobs:
         python -m pip install opencv-python
         python -m pip install bs4
         python -m pip install twilio
-    - name: Test with pytest
+        
+    - name: Fetch secret from GitHub settings
       run: |
-        python instauploadtesting1.py
+          echo "${{ secrets.OPENAI_API_KEY }}" >> my_secret.txt
+    
+    - name: Test with pytest
+      run: python instauploadtesting1.py
+      env:
+        OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
