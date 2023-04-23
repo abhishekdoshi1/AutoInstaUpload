@@ -163,6 +163,8 @@ print("image saved")
 #Bot started
 bot = Bot()
 
+bot.logout()
+
 #Bot Logged into instagram with username and password
 bot.login(username="testpycode", password="Satara@123")
 
