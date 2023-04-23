@@ -180,6 +180,8 @@ bot.upload_photo(dir_image+image_name , caption=quote)
 
 print("image uploaded")
 
+bot.logout()
+
 account_sid = 'ACe9e2d6401acf4b4947ad1361148780f1'
 auth_token = '2b47c92b5d5b9fbf641d624c790be1b2'
 client = Client(account_sid, auth_token)
