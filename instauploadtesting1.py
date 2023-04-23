@@ -7,7 +7,7 @@ import cv2
 import numpy as np
 import requests
 import json
-from PIL import Image,ImageDraw, ImageFont
+from PIL import Image,ImageDraw,ImageFont,ImageOps
 from io import BytesIO
 from bs4 import BeautifulSoup
 import PIL.Image
@@ -48,6 +48,27 @@ import time
 ##message = completions.choices[0].text.strip() #quote stored in message variable
 ##
 ##print(message)
+
+#openai.api_key = "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"
+openai.api_key = os.environ['OPENAI_API_KEY']
+
+#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
+
+prompt = (f"Generate a fitness quote.")
+model = "text-davinci-002"
+
+response = openai.Completion.create(
+    engine=model,
+    prompt=prompt,
+    max_tokens=20,
+    n=1,
+    stop=None,
+    temperature=0.5,
+)
+
+quote = response.choices[0].text.strip()
+
+print(quote)
 
 
 # Define the endpoint URL and parameters
@@ -97,15 +118,16 @@ fitness_quotes = [
     "Yoga is a light, which once lit will never dim. The better your practice, the brighter your flame.",
     "Yoga is the perfect opportunity to be curious about who you are."
 ]
-quote = random.choice(fitness_quotes)
+#quote = random.choice(fitness_quotes)
 
 # Create a Pillow ImageDraw object and set font properties
-draw = ImageDraw.Draw(image)
-font_size = int(image.size[1] * 0.05)
+
+font_size = int(image.size[1] * 0.07)
 font = ImageFont.truetype("arial.ttf", font_size)
 print("font properties created")
 
 # Define the text and box widths for text wrapping
+
 text_width = int(image.size[0] * 0.8)
 box_width = int(image.size[0] * 0.9)
 
@@ -124,22 +146,50 @@ def split_lines(text, font, width):
     return lines
 
 # Split the quote into lines and calculate the total height of the text
-lines = split_lines(quote, font, box_width)
+lines = split_lines(quote, font, text_width)
 text_height = sum(font.getsize(line)[1] for line in lines)
 
+#Border width
+border = 20
+
 # Calculate the position of the top-left corner of the text box
-text_position = ((image.size[0] - box_width) / 2, (image.size[1] - text_height) / 2)
+
+text_position = (border,(image.height))
+
+#Create new image with original image and extended image for rectangle
+new_img = Image.new("RGB", (image.width, image.height + text_height))
+
+#Paste the original image onto new image
+new_img.paste(image, (0, 0))
+
+# Create a Pillow ImageDraw object
+draw = ImageDraw.Draw(new_img)
+
+#Draw the rectangle below the image
+draw.rectangle((0,image.height,image.width,image.height+text_height),fill="#FFFF00",outline=None)
+
+
 
 # Draw the quote text on the image, with text wrapping within the box width
 for line in lines:
     line_width, line_height = font.getsize(line)
-    draw.text((text_position[0] + (box_width - line_width) / 2, text_position[1]), line, fill=(255, 255, 255), font=font)
+    draw.text((int(text_position[0] + (box_width - line_width) / 2), int(text_position[1])), line, fill=(0,0,0), font=font,stroke_width=1,text_color_bg=(255, 0, 0),align='center')
     text_position = (text_position[0], text_position[1] + line_height)
 
-# Save the image with the quote
-image.save("instaPhotos/fitness_quote.jpg")
-print("image saved")
+new_img = ImageOps.expand(new_img,border=border,fill='yellow')
 
+#Name of the image
+image_name = "fitness_quote" + str(time.time()) + ".png" 
+
+#To decrease the opacity of image 255: max
+new_img.putalpha(255)
+
+
+
+# Save the image with the quote
+
+new_img.save("instaPhotos/"+image_name)
+print("image saved")
 
 
 ## Now Uploaded onto instagram
@@ -150,14 +200,16 @@ bot = Bot()
 #Bot Logged into instagram with username and password
 bot.login(username="testpycode", password="Satara@123")
 
-time.sleep(retry)
+#time.sleep(retry)
 
 #find the folder 
 dir_image = "instaPhotos/"
 
+bot.upload_photo(dir_image+image_name , caption=quote)
+
 #uploaded into instagram
-for image in os.listdir(dir_image):
- bot.upload_photo(dir_image+image , caption=quote)
+#for image in os.listdir(dir_image):
+ #bot.upload_photo(dir_image+image , caption=quote)
 
 
 print("image uploaded")
@@ -167,12 +219,13 @@ auth_token = '2b47c92b5d5b9fbf641d624c790be1b2'
 client = Client(account_sid, auth_token)
 
 
-    #Delete the .REMOVE File Frist
+#Delete the .REMOVE File Frist
 
-def DeleteFile(filepath):
+'''def DeleteFile(filepath):
     if os.path.exists(filepath):
         os.remove(filepath)
         print("delted")
+
 ##        message = client.messages.create(
 ##            from_ = "whatsapp:+15673992184",
 ##            to='whatsapp:+918888456211',
@@ -181,10 +234,10 @@ def DeleteFile(filepath):
         ##print(account_sid , auth_token)
         print("Message")
     else:
-        print("not exist")
+        print("not exist")'''
 
-DeleteFile("instaPhotos/fitness_quote.jpg.REMOVE_ME")
-print("file deleted")
+#DeleteFile("instaPhotos/fitness_quote.jpg.REMOVE_ME")
+#print("file deleted")
 
 
 
