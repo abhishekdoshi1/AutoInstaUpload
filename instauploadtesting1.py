@@ -18,41 +18,7 @@ import textwrap
 import time
 
 
-
-###Authenticate with OpenAI API   
-##
-##secrets = os.getenv("openai")
-##openai.api_key = "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"
-##
-###model_engine = "text-davinci-002" # set the GPT-3 model to use
-##
-### Define the prompt for the GPT-3 model
-###msg = "bhagavad gita"
-##prompt = "give me a quote of fitness"
-##
-##
-### Define the GPT-3 model and parameters
-##model_engine = "text-davinci-003"
-##max_tokens = 1024
-##temperature = 0.5
-##
-##completions = openai.Completion.create(
-##  engine=model_engine,
-##   prompt=prompt,
-##   max_tokens=1024,
-##    n=1,
-##    stop=None,
-##    temperature=0.7,
-##)
-##
-##message = completions.choices[0].text.strip() #quote stored in message variable
-##
-##print(message)
-
-#openai.api_key = "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"
 openai.api_key = os.environ['OPENAI_API_KEY']
-
-#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
 
 prompt = (f"Generate a fitness quote.")
 model = "text-davinci-002"
