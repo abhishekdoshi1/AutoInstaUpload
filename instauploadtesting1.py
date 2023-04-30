@@ -164,7 +164,7 @@ print("image saved")
 bot = Bot()
 
 #Bot Logged into instagram with username and password
-bot.login(username="testpycode", password="Satara@123")
+bot.login(username="Go_DeepInto_Motivation", password="MotivationalArea@123")
 
 #time.sleep(retry)
 
