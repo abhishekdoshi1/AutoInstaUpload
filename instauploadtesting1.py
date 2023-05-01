@@ -163,6 +163,8 @@ print("image saved")
 #Bot started
 bot = Bot()
 
+time.sleep(2.4)
+
 #Bot Logged into instagram with username and password
 bot.login(username="Go_DeepInto_Motivation", password="MotivationalArea@123")
 
